@@ -58,3 +58,23 @@ body {
 
     font-family: var(--font-family);
 }
+
+nav {
+    display: flex;
+    flex-direction: row;
+}
+
+.overview-radiostations {
+    display: flex;
+    flex-direction: row;
+}
+
+.overview-programma {
+    display: flex;
+    flex-direction: column;
+}
+
+dl {
+    display: flex;
+    flex-direction: row;
+}

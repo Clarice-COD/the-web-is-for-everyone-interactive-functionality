@@ -26,6 +26,15 @@ app.set('views', './views')
 
 console.log('Let op: Er zijn nog geen routes. Voeg hier dus eerst jouw GET en POST routes toe.')
 
+// -c- I'm going to make a GET route for index
+app.get('/', async function (request, response) {
+  const programmaUrl = "https://fdnd-agency.directus.app/items/mh_day?fields=date,shows.mh_shows_id.from,shows.mh_shows_id.until,shows.mh_shows_id.show.name,shows.mh_shows_id.show.radiostation.name,shows.mh_shows_id.show.radiostation.logo,shows.mh_shows_id.show.users.mh_users_id.full_name"
+  const programmaResponse = await fetch (programmaUrl)
+  const programmaResponseJSON = await programmaResponse.json()
+
+  response.render('index.liquid', {programmas: programmaResponseJSON.data})
+})
+
 /*
 // Zie https://expressjs.com/en/5x/api.html#app.get.method over app.get()
 app.get(…, async function (request, response) {

@@ -77,8 +77,35 @@ header {
 }
 
 nav {
+    position: fixed;
+    padding: var(--padding-s);
+    bottom: 0;
+    height: 5rem;
+    background-color: var(--highlight-color);
     display: flex;
     flex-direction: row;
+    gap: var(--gap-s);
+    width: var(--width);
+    overflow: auto;
+    left: 0;
+    right: 0;
+    justify-content: flex-start;
+}
+
+.filter-date {
+    font-size: var(--text-size-s);
+    background-color: var(--secondary-bg-color);
+    color: var(--primary-text-color);
+    width: 4rem;
+    height: 3.4rem;
+    border-radius: var(--border-radius-s);
+    flex-shrink: 0;
+    display: grid;
+    place-items: center;
+    margin-bottom: 0.5rem;
+    margin-top: 0.5rem;
+    text-decoration: none;
+    font-weight: var(--font-weight-l);
 }
 
 .overview-radiostations {

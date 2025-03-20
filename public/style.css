@@ -61,9 +61,19 @@ body {
 }
 
 header {
+    position: relative;
    background-image: url(/placeholder-header.jpg);
    background-size: cover;
    background-repeat: no-repeat;
+   
+}
+
+.album {
+    position: absolute;
+    left: 1.5rem;
+    bottom: -30%;
+    width: 7rem;
+    border-radius: var(--border-radius-s);
 }
 
 nav {

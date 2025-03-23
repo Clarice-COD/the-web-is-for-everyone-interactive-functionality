@@ -1,9 +1,25 @@
 // Importeer het npm package Express (uit de door npm aangemaakte node_modules map)
 // Deze package is geïnstalleerd via `npm install`, en staat als 'dependency' in package.json
-import express from 'express'
+import express, {json} from 'express'
 
 // Importeer de Liquid package (ook als dependency via npm geïnstalleerd)
 import { Liquid } from 'liquidjs';
+
+const radioResponse = await fetch ('https://fdnd-agency.directus.app/items/mh_shows?fields=*.*.*')
+const radioResponseJSON = await radioResponse.json()
+
+const allShowsinner = [];
+ 
+radioResponseJSON.data.forEach(function(show) {
+ 
+  allShowsinner.push({
+      ...show.show,
+      from: show.from,
+      until: show.until,
+    });
+
+    // console.log(radioResponseJSON.data)
+  });
 
 // Maak een nieuwe Express applicatie aan, waarin we de server configureren
 const app = express()
@@ -24,15 +40,24 @@ app.engine('liquid', engine.express());
 app.set('views', './views')
 
 
-console.log('Let op: Er zijn nog geen routes. Voeg hier dus eerst jouw GET en POST routes toe.')
+// console.log('Let op: Er zijn nog geen routes. Voeg hier dus eerst jouw GET en POST routes toe.')
 
 // -c- I'm going to make a GET route for index
 app.get('/', async function (request, response) {
   const programmaUrl = "https://fdnd-agency.directus.app/items/mh_day?fields=date,shows.mh_shows_id.from,shows.mh_shows_id.until,shows.mh_shows_id.show.name,shows.mh_shows_id.show.radiostation.name,shows.mh_shows_id.show.radiostation.logo,shows.mh_shows_id.show.users.mh_users_id.full_name"
   const programmaResponse = await fetch (programmaUrl)
-  const programmaResponseJSON = await programmaResponse.json()
+  const {data: programmaResponseJSON} = await programmaResponse.json()
+// console.log(programmaResponseJSON[0].shows[0]);
 
-  response.render('index.liquid', {programmas: programmaResponseJSON.data})
+  response.render('index.liquid', {programmas: programmaResponseJSON[0].shows})
+  // console.log(programmaResponseJSON.data)
+})
+
+// DAY 1
+app.get('/maandag', async function (request, response) {
+  const programmaResponse = await fetch('https://fdnd-agency.directus.app/items/mh_day?fields=date,shows.mh_shows_id.from,shows.mh_shows_id.until,shows.mh_shows_id.show.name,shows.mh_shows_id.show.radiostation.*,shows.mh_shows_id.show.users.mh_users_id.*&filter=%7B%"22"_and%"22":[%7B%"22"weekday(date)%"22":%"22"1%"22"%7D,%7B%"22"shows%"22":%7B%"22"mh_shows_id%"22":%7B%"22"show%"22":%7B%"22"radiostation%"22":%7B%"22"name%"22":%"22"Radio%20Veronica%"22"%7D%7D%7D%7D%7D]%7D')
+  const programmaResponseJSON = await programmaResponse.json()
+  response.render('index.liquid', { calendar: programmaResponse.data })
 })
 
 /*
@@ -80,4 +105,9 @@ app.set('port', process.env.PORT || 8000)
 app.listen(app.get('port'), function () {
   // Toon een bericht in de console
   console.log(`Daarna kun je via http://localhost:${app.get('port')}/ jouw interactieve website bekijken.\n\nThe Web is for Everyone. Maak mooie dingen 🙂`)
+})
+
+
+app.post('/', async function (request, response) {
+  response.redirect(303, '/')
 })

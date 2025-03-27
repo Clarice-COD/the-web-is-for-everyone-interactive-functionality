@@ -131,8 +131,18 @@ nav {
 }
 
 dl {
-    display: flex;
-    flex-direction: row;
+    display: grid;
+    grid-template-columns: 1rem auto;
+    gap: 0.5rem;
+}
+
+dt {
+    grid-column: 1;
+}
+
+dd {
+    display: block;
+    margin-left: 0;
 }
 
 .buttons {

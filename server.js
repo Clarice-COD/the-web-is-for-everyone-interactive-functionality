@@ -1,6 +1,6 @@
 // Importeer het npm package Express (uit de door npm aangemaakte node_modules map)
 // Deze package is geïnstalleerd via `npm install`, en staat als 'dependency' in package.json
-import express, {json} from 'express'
+import express, {json, response, text} from 'express'
 
 // Importeer de Liquid package (ook als dependency via npm geïnstalleerd)
 import { Liquid } from 'liquidjs';
@@ -111,3 +111,33 @@ app.listen(app.get('port'), function () {
 app.post('/', async function (request, response) {
   response.redirect(303, '/')
 })
+
+// Like button
+
+
+// I'm going to make a route to the id of students
+// app.get('/student/:id', async function (request, response) {
+//   const personIdResponse = await fetch('https://fdnd-agency.directus.app/items/mh_messages' + request.params.id)
+//   const personIdResponseJSON = await personIdResponse.json()
+
+//   response.render('student.liquid', {person: personIdResponseJSON.data, programma: radioResponseJSON.data})
+
+//   console.log('Id is opgehaald')
+// })
+
+
+app.post ('/like', async (req, res)=>{
+
+  const {showId}=req.body
+  const postLike = await fetch ('https://fdnd-agency.directus.app/items/mh_messages', {
+
+    method: 'POST',
+    headers: {"Content-Type":"application/json"},
+    body: JSON.stringify({
+      text: "LIKE",
+      for: showId,
+      from: "Duck"
+    })
+  })
+})
+

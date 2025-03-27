@@ -118,6 +118,10 @@ nav {
     flex-direction: column;
 }
 
+.show {
+    background-color: #FE0170;
+}
+
 dl {
     display: flex;
     flex-direction: row;

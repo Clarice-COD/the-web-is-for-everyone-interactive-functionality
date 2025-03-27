@@ -124,10 +124,16 @@ nav {
 .show {
     background-color: var( --secondary-bg-color);
     display: flex;
+    position: relative;
     flex-direction: column;
     border-radius: var(--border-radius-m);
     box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.397);
     padding: var(--padding-m);
+    gap: 0.5rem;
+}
+
+h3 {
+    margin: 0;
 }
 
 dl {
@@ -145,15 +151,20 @@ dd {
     margin-left: 0;
 }
 
-.buttons {
+/* .buttons {
     display: flex;
-    flex-direction: row;
-}
+    flex-direction: column;
+    bottom: 0;
+    gap: 1rem;
+    align-items: center;
+} */
 
 .like-btn, .more-btn {
     background-color: var(--highlight-color);
     color: var(--secondary-text-color);
     border: none;
+    border-radius: var(--border-radius-s);
+    height: 2rem;
 }
 
 button {

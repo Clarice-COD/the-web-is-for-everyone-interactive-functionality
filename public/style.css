@@ -58,6 +58,7 @@ body {
 
     font-family: var(--font-family);
     margin: 0;
+    background-color: var(--tertiary-bg-color);
 }
 
 header {
@@ -114,15 +115,27 @@ nav {
 }
 
 .overview-programma {
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(225px, 1fr));
+    grid-gap: 0.5rem;
+    margin: 2rem;
 }
 
 .show {
-    background-color: #FE0170;
+    background-color: var( --secondary-bg-color);
+    display: flex;
+    flex-direction: column;
+    border-radius: var(--border-radius-m);
+    box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.397);
+    padding: var(--padding-m);
 }
 
 dl {
+    display: flex;
+    flex-direction: row;
+}
+
+.buttons {
     display: flex;
     flex-direction: row;
 }

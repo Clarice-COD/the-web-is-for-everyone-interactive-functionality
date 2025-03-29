@@ -32,9 +32,9 @@
                 {% comment %} <img class="input-logo" src="https://fdnd-agency.directus.app/assets/{{ programma.mh_shows_id.show.radiostation.logo }}" alt=""> {% endcomment %}
             {% endfor %}
         </section>
-        <section class="overview-programma">
+        <section>
             <h2>PROGRAMMA</h2>
-
+<div class="overview-programma">
 {% for programma in programmas %}
             {% comment %} {% for day in calendar %} 
                 {% for show in day.shows %} {% endcomment %}
@@ -75,6 +75,7 @@
             {% comment %} {% endfor %}
         {% endfor %} {% endcomment %}
     {% endfor %}
+    </div>
 
         </section>
     </main>

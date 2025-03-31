@@ -48,45 +48,21 @@ app.get('/', async function (request, response) {
   const programmaResponse = await fetch (programmaUrl)
   const {data: programmaResponseJSON} = await programmaResponse.json()
 
-  // try {
-  //   const likesForShows = await fetch('https://fdnd-agency.directus.app/items/mh_messages?filter=%7B%22from%22:%22Duck%22%7D');
-  //   if (!likesForShows.ok) {
-  //     throw new Error('Failed to fetch likes data');
-  //   }
-  //   const likesForShowsJSON = await likesForShows.json();
-
-  //   // Check if the likes data is being correctly passed to the template
-  //   const likes = likesForShowsJSON.data.map(item => item.for); // Assuming "for" is the showId or a similar identifier.
-
-  //   response.render('yourTemplate', { likes }); // Pass the likes to the template
-  // } catch (error) {
-  //   console.error(error);
-  //   response.status(500).send('Something went wrong while fetching the likes.');
-  // }
-
-  try {
+  // LIKE interactie
     const likesForShows = await fetch (`https://fdnd-agency.directus.app/items/mh_messages?filter=%7B%22from%22:%22Duck%22%7D`)
-
-    if (!likesForShows.ok) {
-      throw new Error('Failed to fetch likes data');
-    }
-
     const likesForShowsJSON = await likesForShows.json()
 
-    response.render('index.liquid', {programmas: programmaResponseJSON[0].shows, likes:likesForShowsJSON.data})
-  } catch (error) {
-    console.error(error);
-    response.status(500).send('Something went wrong while fetching the likes.');
-  }
-});
+    const idsOflikesForShows = likedStoriesResponseJSON.data.map(like => {
+      return like.show
+    })
 
+    response.render('index.liquid', 
+      {programmas: programmaResponseJSON[0].shows, 
+        likes:idsOflikesForShows.data})
+    });
 
-  // console.log(programmaResponseJSON[0].shows[0]);
-
-  // console.log(programmaResponseJSON.data)
-
-
-app.post ('/', async function (req, res){
+// Like interactie
+app.post ('/like', async function (req, res){
 
   let showId = req.body.showId
 
@@ -103,6 +79,22 @@ app.post ('/', async function (req, res){
   res.redirect(303, '/')
 })
 
+// Unlike interactie
+app.post('/unlike', async function (req, res) {
+  const unLikesForShows = await fetch('https://agency-agency.directus.app/items/mh_messages')
+  const unLikesForShowsJSON = await unLikesForShows.json()
+  const unLikesForShowsID = unLikesForShowsJSON.data[0].id
+  
+  await fetch(`https://agency-agency.directus.app/items/mh_messages`, {
+    method: 'DELETE'
+  });
+
+  response.redirect(303, '/')
+})
+
+
+
+// DAGEN
 
 // DAY 1
 app.get('/maandag', async function (request, response) {

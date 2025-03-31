@@ -44,14 +44,65 @@ app.set('views', './views')
 
 // -c- I'm going to make a GET route for index
 app.get('/', async function (request, response) {
-  const programmaUrl = "https://fdnd-agency.directus.app/items/mh_day?fields=date,shows.mh_shows_id.from,shows.mh_shows_id.until,shows.mh_shows_id.show.name,shows.mh_shows_id.show.radiostation.name,shows.mh_shows_id.show.radiostation.logo,shows.mh_shows_id.show.users.mh_users_id.full_name"
+  const programmaUrl = "https://fdnd-agency.directus.app/items/mh_day?fields=date,shows.mh_shows_id.from,shows.mh_shows_id.until,shows.mh_shows_id.show.name,shows.mh_shows_id.show.radiostation.name,shows.mh_shows_id.show.radiostation.logo,shows.mh_shows_id.show.users.mh_users_id.full_name,shows.mh_shows_id.show.id"
   const programmaResponse = await fetch (programmaUrl)
   const {data: programmaResponseJSON} = await programmaResponse.json()
-// console.log(programmaResponseJSON[0].shows[0]);
 
-  response.render('index.liquid', {programmas: programmaResponseJSON[0].shows})
+  // try {
+  //   const likesForShows = await fetch('https://fdnd-agency.directus.app/items/mh_messages?filter=%7B%22from%22:%22Duck%22%7D');
+  //   if (!likesForShows.ok) {
+  //     throw new Error('Failed to fetch likes data');
+  //   }
+  //   const likesForShowsJSON = await likesForShows.json();
+
+  //   // Check if the likes data is being correctly passed to the template
+  //   const likes = likesForShowsJSON.data.map(item => item.for); // Assuming "for" is the showId or a similar identifier.
+
+  //   response.render('yourTemplate', { likes }); // Pass the likes to the template
+  // } catch (error) {
+  //   console.error(error);
+  //   response.status(500).send('Something went wrong while fetching the likes.');
+  // }
+
+  try {
+    const likesForShows = await fetch (`https://fdnd-agency.directus.app/items/mh_messages?filter=%7B%22from%22:%22Duck%22%7D`)
+
+    if (!likesForShows.ok) {
+      throw new Error('Failed to fetch likes data');
+    }
+
+    const likesForShowsJSON = await likesForShows.json()
+
+    response.render('index.liquid', {programmas: programmaResponseJSON[0].shows, likes:likesForShowsJSON.data})
+  } catch (error) {
+    console.error(error);
+    response.status(500).send('Something went wrong while fetching the likes.');
+  }
+});
+
+
+  // console.log(programmaResponseJSON[0].shows[0]);
+
   // console.log(programmaResponseJSON.data)
+
+
+app.post ('/', async function (req, res){
+
+  let showId = req.body.showId
+
+  const postLike = await fetch ('https://fdnd-agency.directus.app/items/mh_messages', {
+    method: 'POST',
+    headers: {"Content-Type":"application/json"},
+    body: JSON.stringify({
+      text: "LIKE 2",
+      for: req.body.showId,
+      from: "Duck"
+    })
+  })
+
+  res.redirect(303, '/')
 })
+
 
 // DAY 1
 app.get('/maandag', async function (request, response) {
@@ -59,6 +110,10 @@ app.get('/maandag', async function (request, response) {
   const programmaResponseJSON = await programmaResponse.json()
   response.render('index.liquid', { calendar: programmaResponse.data })
 })
+
+
+// console.log(testNum(-5));
+// Expected output: "NOT positive"
 
 /*
 // Zie https://expressjs.com/en/5x/api.html#app.get.method over app.get()
@@ -107,11 +162,6 @@ app.listen(app.get('port'), function () {
   console.log(`Daarna kun je via http://localhost:${app.get('port')}/ jouw interactieve website bekijken.\n\nThe Web is for Everyone. Maak mooie dingen 🙂`)
 })
 
-
-app.post('/', async function (request, response) {
-  response.redirect(303, '/')
-})
-
 // Like button
 
 
@@ -126,18 +176,4 @@ app.post('/', async function (request, response) {
 // })
 
 
-app.post ('/like', async (req, res)=>{
-
-  const {showId}=req.body
-  const postLike = await fetch ('https://fdnd-agency.directus.app/items/mh_messages', {
-
-    method: 'POST',
-    headers: {"Content-Type":"application/json"},
-    body: JSON.stringify({
-      text: "LIKE",
-      for: showId,
-      from: "Duck"
-    })
-  })
-})
 

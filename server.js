@@ -51,14 +51,17 @@ app.get('/', async function (request, response) {
   // LIKE interactie
     const likesForShows = await fetch (`https://fdnd-agency.directus.app/items/mh_messages?filter=%7B%22from%22:%22Duck%22%7D`)
     const likesForShowsJSON = await likesForShows.json()
-
-    const idsOflikesForShows = likedStoriesResponseJSON.data.map(like => {
-      return like.show
+    let newArray = []
+    const idsOflikesForShows = likesForShowsJSON.data.map(like => {
+      if (like.for != null && like.for != "" && like.for != undefined) {
+        newArray.push(like.for)
+      }
+      
     })
-
+    console.log(newArray);
     response.render('index.liquid', 
       {programmas: programmaResponseJSON[0].shows, 
-        likes:idsOflikesForShows.data})
+        likes:newArray})
     });
 
 // Like interactie
@@ -70,7 +73,7 @@ app.post ('/like', async function (req, res){
     method: 'POST',
     headers: {"Content-Type":"application/json"},
     body: JSON.stringify({
-      text: "LIKE 2",
+      text: "LIKE",
       for: req.body.showId,
       from: "Duck"
     })
@@ -81,15 +84,18 @@ app.post ('/like', async function (req, res){
 
 // Unlike interactie
 app.post('/unlike', async function (req, res) {
-  const unLikesForShows = await fetch('https://agency-agency.directus.app/items/mh_messages')
-  const unLikesForShowsJSON = await unLikesForShows.json()
-  const unLikesForShowsID = unLikesForShowsJSON.data[0].id
-  
-  await fetch(`https://agency-agency.directus.app/items/mh_messages`, {
-    method: 'DELETE'
+  let itemtodeleteIDRequest = await fetch(`https://fdnd-agency.directus.app/items/mh_messages?filter={"_and":[{"for":"${req.body.showId}"},{"from":"Duck"}]}`)
+  let itemtodeleteIDResponse = await itemtodeleteIDRequest.json()
+  let itemtodeleteID = itemtodeleteIDResponse.data[0].id;
+  console.log(itemtodeleteID);
+  await fetch(`https://fdnd-agency.directus.app/items/mh_messages/${itemtodeleteID}`, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json;charset=UTF-8",
+    },
   });
 
-  response.redirect(303, '/')
+  res.redirect(303, '/')
 })
 
 

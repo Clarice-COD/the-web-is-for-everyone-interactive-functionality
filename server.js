@@ -49,10 +49,10 @@ app.get('/', async function (request, response) {
   const {data: programmaResponseJSON} = await programmaResponse.json()
 
   // LIKE interactie
-    const likesForShows = await fetch (`https://fdnd-agency.directus.app/items/mh_messages?filter=%7B%22from%22:%22Duck%22%7D`)
-    const likesForShowsJSON = await likesForShows.json()
-    let newArray = []
-    const idsOflikesForShows = likesForShowsJSON.data.map(like => {
+    const likesForShows = await fetch (`https://fdnd-agency.directus.app/items/mh_messages?filter=%7B%22from%22:%22Duck%22%7D`) // Haakt de link op met likes die is gefilterd op mijn naam 
+    const likesForShowsJSON = await likesForShows.json() // 
+    let newArray = [] //lege erray, zitten momenteel geen waarde aan
+    const idsOflikesForShows = likesForShowsJSON.data.map(like => { 
       if (like.for != null && like.for != "" && like.for != undefined) {
         newArray.push(like.for)
       }

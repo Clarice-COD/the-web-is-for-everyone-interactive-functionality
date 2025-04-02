@@ -91,6 +91,7 @@ nav {
     left: 0;
     right: 0;
     justify-content: flex-start;
+    z-index: 1;
 }
 
 .filter-date {

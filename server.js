@@ -104,7 +104,7 @@ app.post('/unlike', async function (req, res) {
 
 // DAY 1
 app.get('/maandag', async function (request, response) {
-  const programmaResponse = await fetch('https://fdnd-agency.directus.app/items/mh_day?fields=date,shows.mh_shows_id.from,shows.mh_shows_id.until,shows.mh_shows_id.show.name,shows.mh_shows_id.show.radiostation.*,shows.mh_shows_id.show.users.mh_users_id.*&filter=%7B%"22"_and%"22":[%7B%"22"weekday(date)%"22":%"22"1%"22"%7D,%7B%"22"shows%"22":%7B%"22"mh_shows_id%"22":%7B%"22"show%"22":%7B%"22"radiostation%"22":%7B%"22"name%"22":%"22"Radio%20Veronica%"22"%7D%7D%7D%7D%7D]%7D')
+  const programmaResponse = await fetch('https://fdnd-agency.directus.app/items/mh_day?fields=date,shows.mh_shows_id.from,shows.mh_shows_id.until,shows.mh_shows_id.show.name,shows.mh_shows_id.show.radiostation.*,shows.mh_shows_id.show.users.mh_users_id.*&filter=%7B%22_and%22:%5B%7B%22weekday(date)%22:%221%22%7D,%7B%22shows%22:%7B%22mh_shows_id%22:%7B%22show%22:%7B%22radiostation%22:%7B%22name%22:%22Radio%20Veronica%22%7D%7D%7D%7D%7D%5D%7D')
   const programmaResponseJSON = await programmaResponse.json()
   response.render('index.liquid', { calendar: programmaResponse.data })
 })

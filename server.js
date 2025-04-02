@@ -175,3 +175,7 @@ app.listen(app.get('port'), function () {
 
 
 
+// const teamResponse = await fetch('https://fdnd-agency.directus.app/items/mh_messages')
+// const teamResponseJSON = await teamResponse.json()
+// console.log(teamResponseJSON)
+

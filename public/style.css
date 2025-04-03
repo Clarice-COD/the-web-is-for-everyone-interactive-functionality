@@ -158,6 +158,11 @@ h2 {
     margin-left: 1rem;
 }
 
+.instructie-text-radiostations {
+    margin: 0;
+    margin-left: 1rem;
+}
+
 .radiostations {
     background-color: var(--primary-bg-color);
     color: white;

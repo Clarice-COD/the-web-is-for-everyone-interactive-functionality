@@ -62,7 +62,6 @@ body {
 }
 
 header {
-    background-color: #FE0170;
     grid-template-rows: 16rem 13rem;
    display: grid;
 }
@@ -95,8 +94,9 @@ header {
 
 .play {
     position: absolute;
-    /* top: 1rem; */
     background-color: #1e1e1e00;
+    top: 0;
+    border: none;
 }
 
 .img-play {

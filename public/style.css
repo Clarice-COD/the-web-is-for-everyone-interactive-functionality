@@ -122,6 +122,10 @@ header {
     right: 0;
     justify-content: flex-start;
     z-index: 1;
+
+    @media (min-width: 768px) {
+        justify-content: center;
+    }
 }
 
 .filter-date {

@@ -150,6 +150,14 @@ header {
     overflow: auto;
 }
 
+main {
+    margin-bottom: 8rem;
+}
+
+h2 {
+    margin-left: 1rem;
+}
+
 .radiostations {
     background-color: var(--primary-bg-color);
     color: white;

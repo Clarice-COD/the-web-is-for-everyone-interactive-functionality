@@ -62,14 +62,20 @@ body {
 }
 
 header {
-    position: relative;
-   /* background-image: url(/placeholder-header.jpg); */
-   background-size: cover;
+    background-color: #FE0170;
+    grid-template-rows: 16rem 13rem;
+   display: grid;
+}
+
+.bg-img {
+    background-image: url(/placeholder-header.jpg);
+    background-size: cover;
    background-repeat: no-repeat;
-   
 }
 
 .live-playlist {
+    position: relative;
+    top: -5rem;
     display: grid;
     grid-template-rows: 8rem 3rem 2rem 2rem;
     align-items: center;
@@ -89,7 +95,7 @@ header {
 
 .play {
     position: absolute;
-    top: 0;
+    /* top: 1rem; */
     background-color: #1e1e1e00;
 }
 

@@ -150,6 +150,17 @@ header {
     overflow: auto;
 }
 
+#live-radiostation {
+    background-color: #FE0170;
+    width: 8rem;
+    height: 8rem;
+
+    @media (min-width: 768px) {
+        width: 12rem;
+        height: 12rem;
+    }
+}
+
 main {
     margin-bottom: 8rem;
 }

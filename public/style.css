@@ -173,14 +173,36 @@ h2 {
     place-items: center;
     border-radius: 12px;
     display: grid;
+
+    @media (min-width: 768px) {
+        width: 10rem;
+        height: 10rem;
+    }
 }
+
+.timeline-programma {
+    display: flex;
+}
+
+/* hr {
+    border: 0;
+    border-bottom: 3px dashed #000000;
+    background: #ffffff;
+    transform: rotate(90deg);
+} */
 
 .overview-programma {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(225px, 1fr));
-    grid-gap: 0.5rem;
+    grid-gap: 1rem;
     margin: 2rem;
-    
+
+    @media (min-width: 768px) {
+        display: flex;
+        flex-direction: row;
+        overflow: auto;
+        padding: 2rem;
+    }
 }
 
 .show {
@@ -192,6 +214,7 @@ h2 {
     box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.397);
     padding: var(--padding-m);
     gap: 0.5rem;
+    flex-shrink: 0;
 }
 
 h3 {

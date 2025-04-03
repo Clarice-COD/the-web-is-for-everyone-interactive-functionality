@@ -97,7 +97,7 @@ header {
 .play {
     position: absolute;
     background-color: #1e1e1e00;
-    top: 0;
+    top: 10px;
     border: none;
 }
 
@@ -180,9 +180,9 @@ h2 {
     }
 }
 
-.timeline-programma {
+/* .timeline-programma {
     display: flex;
-}
+} */
 
 /* hr {
     border: 0;

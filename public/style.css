@@ -77,7 +77,7 @@ header {
     border-radius: var(--border-radius-s);
 }
 
-nav {
+.nav-days {
     position: fixed;
     padding: var(--padding-s);
     bottom: 0;
@@ -110,9 +110,26 @@ nav {
     font-weight: var(--font-weight-l);
 }
 
-.overview-radiostations {
+.nav-radiostations {
     display: flex;
     flex-direction: row;
+    gap: var(--gap-s);
+    left: 0;
+    right: 0;
+    padding: 1rem;
+    overflow: auto;
+}
+
+.radiostations {
+    background-color: var(--primary-bg-color);
+    color: white;
+    width: 6rem;
+    height: 6rem;
+    flex-shrink: 0;
+    text-decoration: none;
+    place-items: center;
+    border-radius: 12px;
+    display: grid;
 }
 
 .overview-programma {
@@ -120,6 +137,7 @@ nav {
     grid-template-columns: repeat(auto-fit, minmax(225px, 1fr));
     grid-gap: 0.5rem;
     margin: 2rem;
+    
 }
 
 .show {
